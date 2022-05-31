@@ -49,18 +49,26 @@ class Home extends Component {
         console.log(endDate.getTime());
         console.log(endDateString); */
         //console.log(startDate.getTime());
-        this.setState({ timeStart: startDateString });
-        this.setState({ timeStartDate: startDate.getTime()/1000 });
+        this.setState({
+            timeStart: startDateString,
+            timeStartDate: startDate.getTime() / 1000,
+            timeEnd: endDateString,
+            timeEndDate: endDate.getTime() / 1000
+        }, () => {
+            this.onCancel();
+            this.getList();
+        });
+        //this.setState({ timeStartDate: startDate.getTime()/1000 });
         console.log(this.state.timeStartDate);
 
         //console.log(endDate.getTime());
-        this.setState({ timeEnd: endDateString });
-        
-        this.setState({ timeEndDate: endDate.getTime()/1000 });
+        //this.setState({ timeEnd: endDateString });
+
+        //this.setState({ timeEndDate: endDate.getTime()/1000 });
         console.log(this.state.timeEndDate);
         //console.log(endDateString);
-        this.onCancel();
-        this.getList();
+        //this.onCancel();
+        //this.getList();
     }
 
     getList = async () => {
@@ -91,13 +99,17 @@ class Home extends Component {
             }
             //console.log(this.state.listReport);
         }).catch(error => {
-            console.log('adfasf,' ,error);
+            console.log('adfasf,', error);
         })
     };
 
     componentDidMount() {
-        this.setState({ is_mounted: true });
-        this.getList();
+        this.setState({
+            is_mounted: true
+        }, () => {
+            this.getList();
+        });
+        //this.getList();
     }
 
     componentWillUnmount() {
@@ -109,8 +121,10 @@ class Home extends Component {
         this.setState({
             hobbiesValue: code,
             modalVisible: false
+        }, () => {
+            this.getList();
         });
-        this.getList();
+        //this.getList();
     }
 
 
